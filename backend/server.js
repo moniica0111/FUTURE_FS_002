@@ -29,6 +29,7 @@ app.get("/api/leads", (req, res) => {
 // CREATE lead
 app.post("/api/leads", (req, res) => {
   const leads = getLeads();
+
   const newLead = {
     id: Date.now().toString(),
     name: req.body.name,
@@ -36,33 +37,43 @@ app.post("/api/leads", (req, res) => {
     company: req.body.company,
     status: "New",
   };
+
   leads.unshift(newLead);
   saveLeads(leads);
+
   res.status(201).json(newLead);
 });
 
 // UPDATE status
 app.put("/api/leads/:id/status", (req, res) => {
-  const leads = getLeads();
-  const updated = leads.map((lead) =>
-    lead.id === req.params.id
+  let leads = getLeads();
+
+  leads = leads.map((lead) =>
+    String(lead.id) === String(req.params.id)
       ? { ...lead, status: req.body.status }
       : lead
   );
-  saveLeads(updated);
-  res.json({ message: "Updated" });
+
+  saveLeads(leads);
+
+  res.json({ message: "Status Updated" });
 });
 
-// DELETE
+// DELETE lead
 app.delete("/api/leads/:id", (req, res) => {
-  const leads = getLeads().filter(
-    (lead) => lead.id !== req.params.id
+  let leads = getLeads();
+
+  leads = leads.filter(
+    (lead) => String(lead.id) !== String(req.params.id)
   );
+
   saveLeads(leads);
-  res.json({ message: "Deleted" });
+
+  res.json({ message: "Deleted successfully" });
 });
 
 const PORT = 5001;
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

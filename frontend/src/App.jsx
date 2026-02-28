@@ -12,26 +12,28 @@ function App() {
   });
 
   // Fetch leads
+  const fetchLeads = async () => {
+    const res = await fetch(API);
+    const data = await res.json();
+    setLeads(data);
+  };
+
   useEffect(() => {
-    fetch(API)
-      .then((res) => res.json())
-      .then((data) => setLeads(data));
+    fetchLeads();
   }, []);
 
   // Add lead
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(API, {
+    await fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
 
-    const newLead = await res.json();
-    setLeads([newLead, ...leads]);
-
     setForm({ name: "", email: "", company: "" });
+    fetchLeads();
   };
 
   // Update status
@@ -42,40 +44,21 @@ function App() {
       body: JSON.stringify({ status }),
     });
 
-    setLeads(
-      leads.map((lead) =>
-        lead.id === id ? { ...lead, status } : lead
-      )
-    );
+    fetchLeads();
   };
 
-  // Delete
+  // Delete lead
   const deleteLead = async (id) => {
     await fetch(`${API}/${id}`, {
       method: "DELETE",
     });
 
-    setLeads(leads.filter((lead) => lead.id !== id));
+    fetchLeads();
   };
 
   return (
     <div className="container">
       <h1 className="title">Mini CRM Dashboard</h1>
-
-      <div className="stats">
-        <div className="card blue">
-          <h2>{leads.length}</h2>
-          <p>Total Leads</p>
-        </div>
-        <div className="card green">
-          <h2>{leads.filter(l => l.status === "Converted").length}</h2>
-          <p>Converted</p>
-        </div>
-        <div className="card orange">
-          <h2>{leads.filter(l => l.status === "Contacted").length}</h2>
-          <p>Contacted</p>
-        </div>
-      </div>
 
       <form className="form" onSubmit={handleSubmit}>
         <input
