@@ -1,0 +1,101 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #4e73df, #1cc88a);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.title {
+  color: white;
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+.stats {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.card {
+  padding: 20px;
+  border-radius: 15px;
+  width: 180px;
+  color: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.blue { background: #4e73df; }
+.green { background: #1cc88a; }
+.orange { background: #f6c23e; }
+
+.form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+
+.form input {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+.form button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background: #36b9cc;
+  color: white;
+  cursor: pointer;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.lead-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.lead-card h3 {
+  margin: 0;
+  color: #333;
+}
+
+.lead-card p {
+  margin: 4px 0;
+  color: #555;
+}
+.actions select {
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.delete {
+  margin-left: 10px;
+  background: #e74a3b;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
